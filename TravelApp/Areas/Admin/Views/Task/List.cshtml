@@ -1,0 +1,141 @@
+﻿
+@using TravelApp.Areas.Admin.Common
+
+@section Scripts {
+
+    <script>
+
+        var lastOparationTaskId = 0;
+
+        function getTaskList() {
+
+            var email = $("#customerEmailInput").val();
+            var taskStatus = $("#customerTaskStatusSelect option:selected").val();
+            var seyahatid = $("#seyahatListSelect option:selected").val();
+
+
+            $.ajax({
+                url: "/Admin/Task/GetTaskList",
+                method: "GET",
+                data: {
+                    email: email,
+                    taskStatus: taskStatus,
+                    seyahatid: seyahatid
+                },
+                success: function (result) {
+                    $("#customerTaskListArea").html(result);
+
+                }, error: function () {
+
+                }, complete: function () {
+
+                }
+
+
+            })
+
+
+        }
+
+        $(function () {
+
+            //sayfa hazı oldugunda
+            getTaskList();
+        })
+
+
+        function succesCompleteTask(result) {
+
+
+            $(`[data-taskid="${lastOparationTaskId}"]`).replaceWith(result);
+
+        }
+
+        //customerTaskListArea
+
+    </script>
+
+}
+
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Task Listesi</h6>
+
+    </div>
+    <div class="card-body">
+
+        <div class="p-3">
+
+            <form>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="inputEmail4">Email</label>
+                            <input type="email" class="form-control" id="customerEmailInput" placeholder="Email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputState">Durum</label>
+
+
+                            <select id="customerTaskStatusSelect" class="form-control" asp-items="new SelectList(Enum.GetValues(typeof(CustomerTaskStatus)))">
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="inputState">Seyahat Listesi</label>
+
+                            <select id="seyahatListSelect" class="form-control" asp-items="@(new SelectList((List<ProductModel>)ViewBag.AllSeyahatList,"Id","Header"))">
+                                <option>Please select one</option>
+                            </select>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div>
+                    <button type="button" style="float:right" class="btn btn-primary" onclick="getTaskList()">Ara</button>
+                </div>
+
+
+            </form>
+
+            <div class="clearfix">
+            </div>
+
+        </div>
+
+
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+
+
+                        <th>Id</th>
+                        <th>Talep Sahibi Email</th>
+                        <th>Talep Sahibi Description</th>
+                        <th>Seyahat Id</th>
+                        <th>Seyahat Name</th>
+                        <th>CustomerService Id</th>
+                        <th>CustomerService Name</th>
+                        <th>Durum</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+
+                <tbody id="customerTaskListArea">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

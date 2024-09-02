@@ -1,0 +1,155 @@
+﻿@model ProductModel
+
+@{
+
+    string action = Model != null && Model.Id > 0 ? "Edit" : "New";
+}
+
+
+<form asp-action="@action" asp-controller="Product" asp-area="Admin" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Header"></label>
+        <input asp-for="Header" />
+        <span asp-validation-for="Header" class="form-text text-muted"></span>
+
+    </div>
+
+
+
+    <div class="form-group">
+        <label asp-for="Category"></label>
+        @*
+        İstersek kendimiz döngü ile kategori listesini ekrana ekleyip ilgili modelle baglayabiliriz.
+        Burada hem yeni ekle hemde güncelle aynı viewde oldugundan selected itemı set eden if kısmınıda eklememiz gerekir.
+
+        İstersek select tag helper ile bu algoritma ve donguyu ona yaptırtabiliriz. *@
+        @*
+
+        <select name="CategoryId" id="CategoryId">
+
+        <option value="-1">Seçiniz</option>
+        @foreach (var item in (List<CategoryModel>)ViewBag.Categories)
+        {
+
+        if (Model.CategoryId > 0 && item.Id == Model.CategoryId)
+        {
+        <option value="@item.Id" selected>@item.Name</option>
+
+        }
+        else
+        {
+        <option value="@item.Id">@item.Name</option>
+        }
+
+        }
+        </select> *@
+
+
+        <select asp-for="CategoryId"
+                asp-items="@(new SelectList((List<CategoryModel>)ViewBag.Categories,"Id","Name"))">
+            <option>Please select one</option>
+        </select>
+        <span asp-validation-for="CategoryId" class="form-text text-muted"></span>
+    </div>
+
+
+
+
+
+
+    <div class="form-group">
+        <label asp-for="MiniDescription"></label>
+        <input asp-for="MiniDescription" />
+        <span asp-validation-for="MiniDescription" class="form-text text-muted"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" />
+        <span asp-validation-for="Description" class="form-text text-muted"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProductImage"></label>
+        <input type="file" asp-for="ProductImage" />
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="ShowMainPage"></label>
+        <input asp-for="ShowMainPage" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ShowInSlider"></label>
+        <input asp-for="ShowInSlider" />
+    </div>
+
+
+    <div id="productSliderFileDiv" class="form-group" style="display:none">
+        <label asp-for="ProductSliderImage"></label>
+        <input type="file" asp-for="ProductSliderImage" />
+    </div>
+
+
+    @if (Model != null && Model.Id > 0)
+    {
+        <button type="submit" class="btn btn-primary">Güncelle</button>
+    }
+    else
+    {
+        <button type="submit" class="btn btn-primary">Ekle</button>
+    }
+
+</form>
+
+@section Scripts {
+
+    <!-- Place the first <script> tag in your HTML's <head> -->
+    <script src="https://cdn.tiny.cloud/1/09dsnm32sn64bhk8brdq0eowxyl71gxwa09h0ogbxvatqpt5/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+    <script>
+        tinymce.init({
+            selector: '#Description',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+        });
+
+        $(function () {
+
+            //sayfa hazır oldugunda calısacak
+
+            controlSliderFileDivVisibility();
+
+
+        })
+
+
+        $("#ShowInSlider").change(function () {
+
+
+            controlSliderFileDivVisibility();
+
+        })
+
+
+        function controlSliderFileDivVisibility() {
+
+            var hasSliderFile = $("#ShowInSlider").is(":checked");
+
+            if (hasSliderFile == true) {
+
+                $("#productSliderFileDiv").show();
+
+            } else {
+                $("#productSliderFileDiv").hide();
+
+            }
+        }
+
+
+    </script>
+
+}
+

@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - KaramSer </title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/TravelApp.styles.css" asp-append-version="true" />
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+
+
+
+
+    <style>
+        .activeCategory {
+            border-bottom: 3px solid #5c5c5c
+        }
+
+        
+
+    </style>
+
+
+</head>
+<body>
+    <header>
+        @* <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">Anasayfa</a>
+            <div class="ml-auto">
+                <a class="btn btn-primary btn-custom" asp-controller="Account" asp-action="Register">Kayıt Ol</a>
+                <a class="btn btn-secondary btn-custom" asp-controller="Account" asp-action="Login">Giriş Yap</a>
+            </div>
+        </nav> *@
+
+        <div class="ml-auto">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <span class="navbar-text">Hoş geldiniz, @User.Identity.Name!</span>
+                <a class="btn btn-secondary btn-custom ml-2" asp-controller="Account" asp-action="Logout">Çıkış Yap</a>
+            }
+            else
+            {
+                <a class="btn btn-primary btn-custom" asp-controller="Account" asp-action="Register">Kayıt Ol</a>
+                <a class="btn btn-secondary btn-custom" asp-controller="Account" asp-action="Login">Giriş Yap</a>
+            }
+        </div>
+
+
+
+        <a asp-action="Index" asp-controller="Home" asp-area="Admin"> Admine git</a>
+
+
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+
+
+
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+
+                    <i class="fa-solid fa-plane"></i> KaramSer
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+                    @await Component.InvokeAsync("CategoryList")
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <footer class="border-top footer text-muted mt-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5>Hakkımızda</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="@Url.Action("About", "Home")">Şirket Bilgileri</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>Gizlilik</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="@Url.Action("Privacy", "Home")">Gizlilik Politikası</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>Yardım</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="@Url.Action("FAQ", "Home")">Sıkça Sorulan Sorular</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>İletişim</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="@Url.Action("Contact", "Home")">Bize Ulaşın</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    &copy; @DateTime.Now.Year - KaramSer Travel
+                </div>
+
+            </div>
+        </footer>
+        @* <div class="container">
+            &copy; 2024 - TravelApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div> *@
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/a5b7a2848c.js" crossorigin="anonymous"></script>
+
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+
+
+</body>
+</html>

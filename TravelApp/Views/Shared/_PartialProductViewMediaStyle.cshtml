@@ -1,0 +1,15 @@
+﻿@model ProductModel
+
+<a class="card mb-3" asp-action="Detail" asp-controller="Product" asp-route-id="@Model.Id">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <img src="@Model.ImagePath" class="card-img" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Header</h5>
+                <p class="card-text">@Model.MiniDescription</p>
+            </div>
+        </div>
+    </div>
+</a>

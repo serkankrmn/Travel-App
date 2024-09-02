@@ -1,0 +1,32 @@
+﻿@model List<CategoryDataModel>
+
+
+@{
+
+    string categoryActiveClass = "notActive";
+}
+
+
+
+<ul class="navbar-nav flex-grow-1">
+    @foreach (var item in Model)
+    {
+
+        if (ViewBag.ActiveCategoryId != null && item.Id == (int)ViewBag.ActiveCategoryId)
+        {
+            categoryActiveClass = "activeCategory";
+
+        }
+        else
+        {
+            categoryActiveClass = "notActive";
+        }
+
+
+
+        <li class="nav-item @categoryActiveClass">
+            <a class="nav-link text-dark" asp-controller="Product" asp-action="CategoryProduct" asp-route-categoryId="@item.Id">@item.Name</a>
+        </li>
+    }
+
+</ul>

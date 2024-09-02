@@ -1,0 +1,81 @@
+﻿@model HomePageModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- Add the slick-theme.css if you want default styling -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<!-- Add the slick-theme.css if you want default styling -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
+
+<style>
+
+    .seyahatSliderArea img {
+        height: 500px;
+        width: 100%;
+    }
+
+    .seyahatSliderArea {
+        border: 4px solid #e6e6e5;
+        position: relative;
+    }
+
+    .seyahatSliderArea span {
+            position: absolute;
+            display: block;
+            text-align: center;
+            width: 100%;
+            background-color: #8b88884f;
+            font-size: 21px;
+        }
+
+    .slick-prev:before, .slick-next:before {
+        color: black;
+    }
+
+
+    .seyahatSliderIten {
+        position: relative;
+    }
+
+</style>
+
+
+
+
+<div class="seyahatSliderArea">
+
+    @foreach (var item in Model.Products)
+    {
+
+        <div>
+
+            <a class="seyahatSliderIten" asp-action="Detail" asp-controller="Product" asp-route-id="@item.Id">
+                <span style="color:yellow">@item.MiniDescription</span>
+                <img src="@item.ImagePathSlider" />
+            </a>
+
+        </div>
+    }
+
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <script>
+
+        $('.seyahatSliderArea').slick({
+            // slidesToShow: 3,
+            // slidesToScroll: 1,
+            // asNavFor: '.slider-for',
+            dots: true,
+            // centerMode: true,
+            focusOnSelect: true
+        });
+    </script>
+
+}

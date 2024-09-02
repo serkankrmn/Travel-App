@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@* <div>Ben admin areasının home indexiyim</div>
+ *@
+
+@{
+    ViewData["Title"] = "Hoşgeldiniz";
+}
+
+<body>
+    
+    <div class="container welcome-container">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">@ViewData["Title"]</h6>
+            </div>
+            <div class="card-body">
+                <h1 class="welcome-title">Hoşgeldiniz @User.Identity.Name!</h1>
+                <p class="welcome-message">Admin paneline giriş yaptınız. Buradan sisteminizi yönetebilir ve çeşitli işlemleri gerçekleştirebilirsiniz.</p>
+                
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a5b7a2848c.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</body>
+</html>

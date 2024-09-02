@@ -1,0 +1,19 @@
+﻿@model CategoryProductsPageModel
+
+@if (Model.Products.Count == 0)
+{
+
+    await Html.RenderPartialAsync("_ProductListEmptyView1");
+
+
+}
+else
+{
+
+
+    foreach (var item in Model.Products)
+    {
+
+        await Html.RenderPartialAsync("_PartialProductViewMediaStyle", item);
+    }
+}

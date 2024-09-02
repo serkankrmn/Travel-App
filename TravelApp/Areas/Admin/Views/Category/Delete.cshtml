@@ -1,0 +1,16 @@
+﻿@model CategoryModel
+
+
+<form asp-action="Delete" asp-controller="Category" asp-area="Admin" method="post">
+
+    <input type="hidden" asp-for="Id" />
+    <div>
+
+        <b>@Model.Name</b> kategorisini silmek istediğinizden emin misiniz?
+    </div>
+    <div>
+
+        <button type="submit" class="btn btn-primary">EVET</button>
+        <a asp-action="List" asp-controller="Category" asp-area="Admin" class="btn btn-warning">Vazgeç</a>
+    </div>
+</form>

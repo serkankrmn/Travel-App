@@ -1,0 +1,38 @@
+﻿@model CustomerTaskModel
+
+<tr data-taskid="@Model.Id">
+
+
+
+<td>@Model.Id</td>
+<td>@Model.Email</td>
+<td>@Model.Description</td>
+<td>@Model.SeyahatId</td>
+<td>@Model.SeyahatName</td>
+<td>@Model.CustomerServiceId</td>
+<td>@Model.CustomerServiceName</td>
+<td> @Model.IsCompleted</td>
+<td>
+    @if (!Model.IsCompleted)
+    {
+
+
+        <form method="post" data-ajax="true" data-ajax-url="/Admin/Task/CompleteTask" data-ajax-confirm="Emin misin?" data-ajax-success="succesCompleteTask">
+            <script>
+
+                lastOparationTaskId = @Model.Id;
+
+            </script>
+            <input type="hidden" name="id" value="@Model.Id" />
+
+            <button type="submit">Tamamla</button>
+
+        </form>
+
+
+    }
+
+
+</td>
+
+</tr>
